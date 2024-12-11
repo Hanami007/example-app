@@ -33,7 +33,7 @@ export default function Chirp({ chirp }) {
                         <small className="ml-2 text-sm text-gray-600">{dayjs(chirp.created_at).fromNow()}</small>
                         { chirp.created_at !== chirp.updated_at && <small className="text-sm text-gray-600"> &middot; edited</small>}
                     </div>
-                    {chirp.user.id === auth.user.id &&
+                    {chirp.user.id === auth.user.id && //ตรวจสอบว่าผู้ใช้ปัจจุบันเป็นเจ้าของข้อความ
                         <Dropdown>
                             <Dropdown.Trigger>
                                 <button>

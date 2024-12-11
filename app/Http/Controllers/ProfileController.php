@@ -19,7 +19,7 @@ class ProfileController extends Controller
     public function edit(Request $request): Response
     {
         return Inertia::render('Profile/Edit', [
-            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
+            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail, //ตรวจสอบว่าผู้ใช้ยืนยันอีเมลหรือไม่
             'status' => session('status'),
         ]);
     }
@@ -29,10 +29,10 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        $request->user()->fill($request->validated()); //อัปเดตข้อมูลผู้ใช้โดยใช้ fill
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        if ($request->user()->isDirty('email')) { //ตรวจสอบการแก้ไขอีเมล
+            $request->user()->email_verified_at = null; //ถ้ามีการแก้ไข e จะถูกเปลี่ยนเป็น Null
         }
 
         $request->user()->save();
@@ -46,7 +46,7 @@ class ProfileController extends Controller
     public function destroy(Request $request): RedirectResponse
     {
         $request->validate([
-            'password' => ['required', 'current_password'],
+            'password' => ['required', 'current_password'], //ตรวจสอบรหัสผ่านปัจจุบันของผู้ใช้
         ]);
 
         $user = $request->user();

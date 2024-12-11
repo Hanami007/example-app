@@ -38,7 +38,7 @@ class ChirpController extends Controller
             'message' => 'required|string|max:255',
         ]); //ตรวจสอบข้อมูลที่เข้ามา
 
-        $request->user()->chirps()->create($validated);
+        $request->user()->chirps()->create($validated); //ดึงข้อมูลผู้ใช้ปัจจุบันที่ล็อกอินอยู่->เรียกความสัมพันธ์ใน User Model เพื่อเพิ่มข้อมูลไปยัง chirps ที่เชื่อมกับผู้ใช้นั้น->สร้างข้อความใหม่ในตาราง chirps
 
         return redirect(route('chirps.index'));
     }
@@ -64,7 +64,7 @@ class ChirpController extends Controller
      */
     public function update(Request $request, Chirp $chirp):RedirectResponse
     {
-        Gate::authorize('update', $chirp);
+        Gate::authorize('update', $chirp); //ตรวจสอบสิทในการแก้ไข
 
         $validated = $request->validate([
             'message' => 'required|string|max:255',
@@ -82,7 +82,7 @@ class ChirpController extends Controller
     {
         Gate::authorize('delete', $chirp);
 
-        $chirp->delete();
+        $chirp->delete(); //ลบขอ้มูล
 
         return redirect(route('chirps.index'));
     }

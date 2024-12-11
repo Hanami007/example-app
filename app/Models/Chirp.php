@@ -12,6 +12,6 @@ class Chirp extends Model
     ];
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class); //Chirp แต่ละอันเป็นของ ผู้ใช้หนึ่งคน
     }
 }
